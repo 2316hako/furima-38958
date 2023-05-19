@@ -33,7 +33,7 @@ has_many :orders
 belongs_to :user
 has_one :order
 
-## shared テーブル
+## shareds テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
