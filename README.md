@@ -31,7 +31,7 @@ has_many :orders
 
 ### Association
 belongs_to :user
-has_many :orders
+has_one :order
 
 ## shared テーブル
 
@@ -46,7 +46,6 @@ has_many :orders
 | order            | references | null: false, foreign_key: true |
 
 ### Association
-belongs_to :user
 belongs_to :order
 
 ## orders テーブル
@@ -58,5 +57,5 @@ belongs_to :order
 
 ### Association
 belongs_to :user
-belongs_to :shared
+has_one :shared
 belongs :item
