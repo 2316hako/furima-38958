@@ -13,7 +13,6 @@
 
 ### Association
 has_many :items
-belongs_to :shared
 has_many :orders
 
 ## items テーブル
@@ -32,17 +31,17 @@ has_many :orders
 
 ### Association
 belongs_to :user
-belongs_to :order
+has_many :orders
 
 ## shared テーブル
 
 | Column           | Type       | Options                        |
 | ---------------- | ---------- | ------------------------------ |
-| post_code_id     | integer    | null: false                    |
+| post_code        | string     | null: false                    |
 | prefecture_id    | integer    | null: false                    |
-| city_id          | integer    | null: false                    |
-| address_id       | integer    | null: false                    |
-| building_name_id | integer    |                                |
+| city             | string     | null: false                    |
+| address          | string     | null: false                    |
+| building_name    | string     |                                |
 | telephone_number | string     | null: false                    |
 | order            | references | null: false, foreign_key: true |
 
@@ -59,4 +58,5 @@ belongs_to :order
 
 ### Association
 belongs_to :user
-has_many :items
+belongs_to :shared
+belongs :item
