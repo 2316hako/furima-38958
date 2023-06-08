@@ -1,6 +1,6 @@
 class OrderShared
   include ActiveModel::Model
-  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :city, :address, :building_name, :telephone_number
+  attr_accessor :item_id, :user_id, :post_code, :prefecture_id, :city, :address, :building_name, :telephone_number, :token
 
   with_options presence: true do
     validates :item_id
@@ -11,7 +11,6 @@ class OrderShared
     validates :address
     validates :telephone_number, format: { with: /\A\d{10,11}\z/ }
   end
-    validates :building_name
 
   def save
     order = Order.create(item_id: item_id, user_id: user_id)
