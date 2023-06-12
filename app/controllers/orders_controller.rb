@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :move_to_index, only: [:index]
 
   def index
     @item = Item.find(params[:item_id])
@@ -30,6 +31,13 @@ class OrdersController < ApplicationController
       card: order_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_to_index
+    @item = Item.find(params[:item_id])
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
 
 end
