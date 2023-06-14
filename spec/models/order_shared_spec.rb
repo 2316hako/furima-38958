@@ -33,6 +33,18 @@ RSpec.describe OrderShared, type: :model do
         @order_shared.valid?
         expect(@order_shared.errors.full_messages).to include("City can't be blank")
       end
+
+      it 'addressが空では購入できない' do
+        @order_shared.address = ''
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Address can't be blank")
+      end
+
+      it 'telephone_numberが空では購入できない' do
+        @order_shared.telephone_number = ''
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Telephone number can't be blank")
+      end
     end
   end
 end
