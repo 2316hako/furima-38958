@@ -22,6 +22,12 @@ RSpec.describe OrderShared, type: :model do
         expect(@order_shared.errors.full_messages).to include("Post code can't be blank")
       end
 
+      it 'post_codeが3桁ハイフン4桁でないと購入できない' do
+        @order_shared.post_code = '1230092'
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Post code is invalid")
+      end 
+
       it 'prefecture_idが空では購入できない' do
         @order_shared.prefecture_id = 1
         @order_shared.valid?
@@ -44,6 +50,36 @@ RSpec.describe OrderShared, type: :model do
         @order_shared.telephone_number = ''
         @order_shared.valid?
         expect(@order_shared.errors.full_messages).to include("Telephone number can't be blank")
+      end
+
+      it 'telephone_numberが9桁以下では購入できない' do
+        @order_shared.telephone_number = '123456789'
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Telephone number is invalid")
+      end
+
+      it 'telephone_numberが12桁以上では購入できない' do
+        @order_shared.telephone_number = '123456789012'
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Telephone number is invalid")
+      end
+
+      it "tokenが空では登録できないこと" do
+        @order_shared.token = nil
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが紐付いていないと購入できないこと' do
+        @order_shared.user_id = ''
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'itemが紐付いていないと購入できない' do
+        @order_shared.item_id = ''
+        @order_shared.valid?
+        expect(@order_shared.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
