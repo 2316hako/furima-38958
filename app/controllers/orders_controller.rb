@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :move_to_signed_in, expect: [:index]
   before_action :move_to_index, only: [:index]
+  before_action :prevent_url, only: [:index, :create]
 
   def index
     @item = Item.find(params[:item_id])
@@ -42,7 +43,14 @@ class OrdersController < ApplicationController
 
   def move_to_index
     @item = Item.find(params[:item_id])
-    if current_user.id == @item.user_id
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
+  end
+
+  def prevent_url
+    @item = Item.find(params[:item_id])
+    if @item.user_id == current_user.id || @item.order != nil
       redirect_to root_path
     end
   end
